@@ -22,5 +22,5 @@ const UserSchema = new Schema({
 });
 
 const User = mongoose.model('User',UserSchema);
-User.createIndexes();
+// User.createIndexes(); // now email is not index
 module.exports = User;
