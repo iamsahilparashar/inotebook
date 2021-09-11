@@ -20,6 +20,42 @@ const NoteState = (props)=>{
           "tag": "personal",
           "date": "1631377744744",
           "__v": 0
+        },
+        {
+          "_id": "613cd979c0b7970a381f6ae5",
+          "user": "613ac23b4927dd6685ad1cdb",
+          "title": " note 1",
+          "description": "this is a note  1",
+          "tag": "personal",
+          "date": "1631377744744",
+          "__v": 0
+        },
+        {
+          "_id": "613cd979c0b7970a381f6ae5",
+          "user": "613ac23b4927dd6685ad1cdb",
+          "title": " note 1",
+          "description": "this is a note  1",
+          "tag": "personal",
+          "date": "1631377744744",
+          "__v": 0
+        },
+        {
+          "_id": "613cd979c0b7970a381f6ae5",
+          "user": "613ac23b4927dd6685ad1cdb",
+          "title": " note 1",
+          "description": "this is a note  1",
+          "tag": "personal",
+          "date": "1631377744744",
+          "__v": 0
+        },
+        {
+          "_id": "613cd979c0b7970a381f6ae5",
+          "user": "613ac23b4927dd6685ad1cdb",
+          "title": " note 1",
+          "description": "this is a note  1",
+          "tag": "personal",
+          "date": "1631377744744",
+          "__v": 0
         }
       ]
 
