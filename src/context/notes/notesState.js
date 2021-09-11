@@ -22,7 +22,7 @@ const NoteState = (props)=>{
           "__v": 0
         },
         {
-          "_id": "613cd979c0b7970a381f6ae5",
+          "_id": "613cd979c0b7970a38j1f6ae5",
           "user": "613ac23b4927dd6685ad1cdb",
           "title": " note 1",
           "description": "this is a note  1",
@@ -31,7 +31,7 @@ const NoteState = (props)=>{
           "__v": 0
         },
         {
-          "_id": "613cd979c0b7970a381f6ae5",
+          "_id": "613cd979c0eb7970a381f6ae5",
           "user": "613ac23b4927dd6685ad1cdb",
           "title": " note 1",
           "description": "this is a note  1",
@@ -40,7 +40,7 @@ const NoteState = (props)=>{
           "__v": 0
         },
         {
-          "_id": "613cd979c0b7970a381f6ae5",
+          "_id": "613cd979c0b7970a3k81f6ae5",
           "user": "613ac23b4927dd6685ad1cdb",
           "title": " note 1",
           "description": "this is a note  1",
@@ -49,7 +49,7 @@ const NoteState = (props)=>{
           "__v": 0
         },
         {
-          "_id": "613cd979c0b7970a381f6ae5",
+          "_id": "613scd979c0b7970a381f6ae5",
           "user": "613ac23b4927dd6685ad1cdb",
           "title": " note 1",
           "description": "this is a note  1",
