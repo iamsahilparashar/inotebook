@@ -4,12 +4,11 @@ import { useState } from "react";
 const NoteState = (props) => {
   const host = "http://localhost:5000";
   const notesinitial = [];
-
   const [notes, setNotes] = useState(notesinitial);
+
 
   // get notes
   const getNotes = async () => {
-
     const response = await fetch(`${host}/api/notes/fetchallnotes`, {
       method: 'GET',
       headers: {
@@ -17,7 +16,6 @@ const NoteState = (props) => {
         'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjEzYWMyM2I0OTI3ZGQ2Njg1YWQxY2RiIn0sImlhdCI6MTYzMTMyNzE2Mn0.aywVwQAvlfUFoexQYe1Pl_m0BA9MYADQNmclSwuVP34"
       },
     });
-
     const json = await response.json();
     console.log(json);
     setNotes(json);
@@ -28,7 +26,6 @@ const NoteState = (props) => {
 
   //add a note
   const addNote = async (title, description, tag) => {
-
     const response = await fetch(`${host}/api/notes/addnotes`, {
       method: 'POST',
       headers: {
@@ -53,8 +50,17 @@ const NoteState = (props) => {
 
 
   //delete a note
-  const deleteNote = (id) => {
-    console.log(id);
+  const deleteNote = async (id) => {
+    // console.log(id);
+    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjEzYWMyM2I0OTI3ZGQ2Njg1YWQxY2RiIn0sImlhdCI6MTYzMTMyNzE2Mn0.aywVwQAvlfUFoexQYe1Pl_m0BA9MYADQNmclSwuVP34"
+      },
+    });
+    const json = response.json();
+    console.log(json);
     const newNotes = notes.filter((note) => { return note._id !== id })
     setNotes(newNotes);
   }
@@ -63,9 +69,7 @@ const NoteState = (props) => {
 
   //edit a note
   const editNote = async (id, title, description, tag) => {
-    // url = ;
-    const Id = "613c2343a24a6df0356b1b35";
-    const response = await fetch(`${host}/api/notes/updatenote/${Id}`, {
+    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -74,9 +78,6 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag })
     });
     const json = response.json();
-    //Api call
-
-    // logic to edit a client
     for (let index = 0; index < notes.length; index++) {
       const element = notes[index];
       if (element._id === id) {
@@ -88,7 +89,7 @@ const NoteState = (props) => {
   }
 
   return (
-    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote , getNotes}}>
+    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
       {props.children}
     </NoteContext.Provider>
   )
