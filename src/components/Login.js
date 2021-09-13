@@ -1,9 +1,9 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router';
 
 
-const Login = () => {
-    const [credentials, setCredentials] = useState({email:"" ,password:""})
+const Login = (props) => {
+    const [credentials, setCredentials] = useState({ email: "", password: "" })
     let history = useHistory();
     const handleSubmit = async (e) => {
 
@@ -18,18 +18,36 @@ const Login = () => {
         });
         const json = await response.json();
         console.log(json);
-        if(json.success){
+        if (json.success) {
             //save the auth and redorect
-            localStorage.setItem('token',json.authtoken);
-            history.push("/"); 
+            localStorage.setItem('token', json.authtoken);
+            history.push("/");
+            props.showAlert("Logged in successfully", "success")
+
         }
-        else{
-            alert("invalid credentials")
+        else {
+            props.showAlert("Invalid Credentials", "danger")
         }
 
     }
     const onChange = (e) => {
-        setCredentials({...credentials, [e.target.name]: e.target.value })
+        setCredentials({ ...credentials, [e.target.name]: e.target.value })
+    }
+    var state = false;
+    const toggle = () => {
+        if (!state) {
+            document.getElementById("password").setAttribute("type", "text");
+            document.getElementById("eye").style.color = "blue";
+            state = true;
+            
+        }
+        if(state) {
+                setTimeout(() => {
+                document.getElementById("password").setAttribute("type", "password");
+                document.getElementById("eye").style.color = "black";
+                state = false;
+            }, 400);
+        }
     }
 
     return (
@@ -42,7 +60,8 @@ const Login = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="password"  name = "password" value={credentials.password} onChange={onChange} />
+                    <input type="password" className="form-control" id="password" name="password" value={credentials.password} onChange={onChange} />
+                    <span id="eye" onClick={toggle}><i className="fas fa-eye"></i></span>
                 </div>
                 <button type="submit" className="btn btn-primary" >Submit</button>
             </form>

@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+#eye{
+  position: absolute;
+  margin-top: -2.2%;
+  margin-left: 80%;
+  cursor: pointer;
+}
+#eyeSign{
+  position: absolute;
+  margin-top: -2.2%;
+  margin-left: 79%;
+  cursor: pointer;
+}

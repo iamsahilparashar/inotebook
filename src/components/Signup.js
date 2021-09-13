@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router';
 
-const Signup = () => {
+const Signup = (props) => {
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" })
     let history = useHistory();
     const handleSubmit = async (e) => {
@@ -21,15 +21,34 @@ const Signup = () => {
             //save the auth and redorect
             localStorage.setItem('token',json.authtoken);
             history.push("/"); 
+            props.showAlert("Account created successfully" , "success")
+
         }
         else{
-            alert("invalid credentials")
+            props.showAlert("Invalid Details" , "danger")
         }
 
     }
 
     const onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
+    }
+
+    var state = false;
+    const toggle = () => {
+        if (!state) {
+            document.getElementById("password").setAttribute("type", "text");
+            document.getElementById("eyeSign").style.color = "blue";
+            state = true;
+            
+        }
+        if(state) {
+                setTimeout(() => {
+                document.getElementById("password").setAttribute("type", "password");
+                document.getElementById("eyeSign").style.color = "black";
+                state = false;
+            }, 400);
+        }
     }
 
     return (
@@ -47,6 +66,7 @@ const Signup = () => {
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
                     <input type="password" className="form-control" id="password" name="password"onChange={onChange}   minLength = {5} required />
+                    <span id="eyeSign" onClick={toggle}><i className="fas fa-eye"></i></span>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="cpassword" className="form-label">Confirm Password</label>
