@@ -17,7 +17,7 @@ const Login = (props) => {
             body: JSON.stringify({ email: credentials.email, password: credentials.password })
         });
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         if (json.success) {
             //save the auth and redorect
             localStorage.setItem('token', json.authtoken);
@@ -51,7 +51,8 @@ const Login = (props) => {
     }
 
     return (
-        <div>
+        <div className="mt-2 ">
+            <h1>Login to continue...</h1>
             <form onSubmit={handleSubmit} >
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>

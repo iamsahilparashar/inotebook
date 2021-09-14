@@ -4,28 +4,48 @@ import { useHistory } from 'react-router';
 const Signup = (props) => {
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" })
     let history = useHistory();
+
+    let matchPass = false;
+    const  matchPasswords = () => {
+        let pass = document.getElementById("password").value;
+        let cpass = document.getElementById("cpassword").value;
+        // console.log(pass);
+        // console.log(cpass);
+        if (pass !== cpass) {
+            props.showAlert("Confirm password doesn't match with password", "danger");
+            document.getElementById("cpassword").value = "";
+            matchPass = true;
+        }
+
+    }
+
     const handleSubmit = async (e) => {
         const { name, email, password, cpassword } = credentials;
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/auth/createuser", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        matchPasswords();
+        // console.log(matchPass);
+        if (!matchPass) {
+            const response = await fetch("http://localhost:5000/api/auth/createuser", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
 
-            body: JSON.stringify({ name, email, password })
-        });
-        const json = await response.json();
-        console.log(json);
-        if(json.success){
-            //save the auth and redorect
-            localStorage.setItem('token',json.authtoken);
-            history.push("/"); 
-            props.showAlert("Account created successfully" , "success")
+                body: JSON.stringify({ name, email, password })
+            });
+            const json = await response.json();
+            // console.log(json);
 
-        }
-        else{
-            props.showAlert("Invalid Details" , "danger")
+
+            if (json.success) {
+                //save the auth and redorect
+                localStorage.setItem('token', json.authtoken);
+                history.push("/");
+                props.showAlert("Account created successfully", "success")
+            }
+            else {
+                props.showAlert("Invalid Details", "danger")
+            }
         }
 
     }
@@ -40,10 +60,10 @@ const Signup = (props) => {
             document.getElementById("password").setAttribute("type", "text");
             document.getElementById("eyeSign").style.color = "blue";
             state = true;
-            
+
         }
-        if(state) {
-                setTimeout(() => {
+        if (state) {
+            setTimeout(() => {
                 document.getElementById("password").setAttribute("type", "password");
                 document.getElementById("eyeSign").style.color = "black";
                 state = false;
@@ -51,8 +71,10 @@ const Signup = (props) => {
         }
     }
 
+
     return (
-        <div className="container">
+        <div className=" container mt-2 ">
+            <h1>Create a account to continue to iNotebook</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
@@ -65,12 +87,12 @@ const Signup = (props) => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="password" name="password"onChange={onChange}   minLength = {5} required />
+                    <input type="password" className="form-control" id="password" name="password" onChange={onChange} minLength={5} required />
                     <span id="eyeSign" onClick={toggle}><i className="fas fa-eye"></i></span>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="cpassword" className="form-label">Confirm Password</label>
-                    <input type="password" className="form-control" id="cpassword" name="cpassword" onChange={onChange}  minLength = {5} required />
+                    <input type="password" className="form-control" id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
                 </div>
                 <button type="submit" className="btn btn-primary" >Submit</button>
             </form>
